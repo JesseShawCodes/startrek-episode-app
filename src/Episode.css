@@ -1,0 +1,17 @@
+div.episode {
+    padding: 5px;
+    width: 300px;
+    margin: 0px auto;
+}
+
+div.episode:nth-of-type(odd) {
+    background: #e0e0e0;
+}
+
+div.episode > h3 {
+    margin: 0px;
+}
+
+span.title, span.episode-number, span.season-number {
+    display: inherit;
+}

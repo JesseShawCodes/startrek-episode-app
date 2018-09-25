@@ -1,0 +1,23 @@
+Decipher Front End Developer Coding Challenge
+
+Greetings Starfleet cadet!  Write a program that uses data containing Star Trek: The Next Generation seasons.
+
+General coding requirements:
+
+1. Your program must be written in front-end web technologies and render in a browser.
+2. ES6/ES7 transpilation via Babel or TypeScript and CSS pre/post processing using LESS/SASS/PostCSS is permitted as long as the build pipeline is well documented and allows assessors to execute the project via NPM scripts.
+3. Please avoid the use of CoffeeScript, Reason, Dart or other compile-to-JS languages.
+4. You may use any libraries or frameworks of your choosing but all dependencies should install cleanly via npm install.
+
+Your program must do the following:
+
+1. Make an HTTP call to http://ec2-52-90-200-167.compute-1.amazonaws.com:8080 with error handling.
+2. Render a list of episodes with (at least) the following data displayed: Title (Original Title), Season Number, and Episode Number.
+3. Each list item should also show badges for Average Rating and Number of Votes.
+4. Provide sorting by Title, Average Rating, and Number of Votes.
+5. Add a control that allows changing seasons.
+
+When you're done please zip up your app and send it back to us.
+Please provide instructions, if any, for running your code.
+
+Thanks! Live long and prosper!
