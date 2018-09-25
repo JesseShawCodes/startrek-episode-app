@@ -6,28 +6,51 @@ import Episode from './Episode'
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { counter: 0 };
+    this.state = { 
+      season: 2,
+      data: [],
+      dataReceived: false,
+      dataVisual: []
+    };
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     fetch('http://ec2-52-90-200-167.compute-1.amazonaws.com:8080')
     .then(data => data.json())
-    .then(data => this.setState({dataReceived: true, data: data}))
+    .then(data => this.setState({dataReceived: true, data: data, dataVisual: data}))
+  }
+
+  handleChange(e) {
+    this.setState({season: e.target.value,dataVisual: []});
+    var newData = []
+    for (var i = 0; i < this.state.data.length; i++) {
+      if (this.state.data[i].episodeNumber === i) {
+        newData.push(<Episode 
+          key={i}
+          title={this.state.dataVisual[i].primaryTitle}
+          originalTitle={this.state.dataVisual[i].originalTitle}
+          episodeNumber={this.state.dataVisual[i].episodeNumber}
+          seasonNumber={this.state.dataVisual[i].seasonNumber}
+        />)
+      }
+    }
   }
   
   render() {
-    var data = []
+
+    var trekEpisodes = []
     if (this.state.dataReceived === true) {
-      for (var i = 0; i < this.state.data.length; i++) {
-        data.push(<Episode key={i}
-          title={this.state.data[i].primaryTitle}
-          originalTitle={this.state.data[i].originalTitle}
-          episodeNumber={this.state.data[i].episodeNumber}
-          seasonNumber={this.state.data[i].seasonNumber}
+      for (var i = 0; i < this.state.dataVisual.length; i++) {
+        trekEpisodes.push(<Episode key={i}
+          title={this.state.dataVisual[i].primaryTitle}
+          originalTitle={this.state.dataVisual[i].originalTitle}
+          episodeNumber={this.state.dataVisual[i].episodeNumber}
+          seasonNumber={this.state.dataVisual[i].seasonNumber}
         />)
       }
-      console.log("DATA RECEIVED!")
     }
+
     return (
       <div className="App">
         <header className="App-header">
@@ -35,17 +58,12 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <h2>Select Season</h2>
-        <select>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="2">5</option>
-          <option value="3">6</option>
-          <option value="4">7</option>
-        </select>
         <div className="data-section">
-          {data}
+        <section class="slidecontainer">
+          Season: {this.state.season}
+          <input type="range" min="1" max="7" value={this.state.season} class="slider" id="myRange" onChange={this.handleChange} />
+        </section>
+          {trekEpisodes}
         </div>
       </div>
     );
