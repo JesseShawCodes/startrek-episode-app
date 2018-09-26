@@ -84,6 +84,7 @@ class App extends Component {
 
     return (
       <div className="App">
+        <h1>Star Wars App</h1>
         <h2>Select Season</h2>
         <div className="data-section">
         <section className="slidecontainer">
