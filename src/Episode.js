@@ -9,8 +9,8 @@ class Episode extends Component {
         <span className="title">{this.props.originalTitle}</span>
         <span className="episode-number">Episode: {this.props.episodeNumber}</span>
         <span className="season-number">Season: {this.props.seasonNumber}</span>
-        <div className="average-rating">Rating:</div>
-        <div className="number-votes">Number Votes:</div>
+        <div className="average-rating">Rating: {this.props.rating}</div>
+        <div className="number-votes">Number Votes: {this.props.votes}</div>
       </div>
     );
   }
