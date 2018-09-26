@@ -25,16 +25,13 @@ class App extends Component {
   }
 
   updateData(e) {
-    console.log("UPDATING DATA")
     this.setState({season: e,dataVisual: []});
     var newData = []
     for (var i = 0; i < this.state.data.length; i++) {
-      console.log(i)
       if (this.state.data[i].seasonNumber === parseInt(e, 8)) {
         newData.push(this.state.data[i])
       }
     }
-    console.log(newData);
     this.setState({dataVisual: newData, select: "default"})
   }
 
@@ -46,21 +43,17 @@ class App extends Component {
     this.setState({select: e.target.value})
     // var sortedData = this.state.dataVisual
     if (e.target.value === "votes") {
-      console.log("SORTING BY VOTES");
       this.state.dataVisual.sort(function (a, b) {
         return b.numVotes - a.numVotes;
       });
     }
     if (e.target.value === "rating") {
-      console.log("SORTING BY RATING");
       this.state.dataVisual.sort(function (a, b) {
         return b.averageRating - a.averageRating;
       });
     }
     if (e.target.value === "title") {
-      console.log("SORTING BY TITLE");
       this.state.dataVisual.sort(function(a, b) {
-        console.log(a)
         var nameA = a.originalTitle;
         var nameB = b.originalTitle;
         if (nameA < nameB) {

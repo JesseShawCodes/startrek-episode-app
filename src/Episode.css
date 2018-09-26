@@ -52,3 +52,7 @@ span.badge-votes, span.badge-rating {
 span.badge-votes, span.badge-rating {
     margin-left: 5px;
 }
+
+.average-rating:hover, .number-votes:hover {
+    box-shadow: -4px 2px grey;
+}
