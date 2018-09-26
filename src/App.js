@@ -6,33 +6,44 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      season: "All Seasons",
+      error: false,
       data: [],
       dataReceived: false,
       dataVisual: [],
-      select: "votes"
+      season: "All Seasons",
+      select: "default",
     };
     this.handleChange = this.handleChange.bind(this);
     this.updateData = this.updateData.bind(this);
     this.sortIt = this.sortIt.bind(this);
   }
+
   // React LifeCycle Methods
   componentDidMount() {
+    let appState = this
     fetch('http://ec2-52-90-200-167.compute-1.amazonaws.com:8080')
     .then(data => data.json())
     .then(data => this.setState({dataReceived: true, data: data, dataVisual: data}))
-    .then(this.updateData(this.state.season))
+    .catch(function(){
+      appState.setState({error: true});
+    })
   }
 
   updateData(e) {
     this.setState({season: e,dataVisual: []});
-    var newData = []
-    for (var i = 0; i < this.state.data.length; i++) {
-      if (this.state.data[i].seasonNumber === parseInt(e, 8)) {
-        newData.push(this.state.data[i])
-      }
+    console.log(e)
+    if(e === "All Seasons") {
+      this.setState({dataVisual: this.state.data});
     }
-    this.setState({dataVisual: newData, select: "default"})
+    else {
+      var newData = []
+      for (var i = 0; i < this.state.data.length; i++) {
+        if (this.state.data[i].seasonNumber === parseInt(e, 10)) {
+          newData.push(this.state.data[i])
+        }
+      }
+      this.setState({dataVisual: newData, select: "default"})
+    }
   }
 
   handleChange(e) {
@@ -69,7 +80,7 @@ class App extends Component {
   
   render() {
     var trekEpisodes = []
-    if (this.state.dataReceived === true) {
+    if (this.state.dataReceived) {
       for (var i = 0; i < this.state.dataVisual.length; i++) {
         trekEpisodes.push(<Episode key={i}
           title={this.state.dataVisual[i].primaryTitle}
@@ -82,24 +93,49 @@ class App extends Component {
       }
     }
 
+    if(this.state.error) {
+      var error = 
+      <section className="error-message">
+        UNABLE TO OBTAIN DATA
+      </section>
+    }
+
     return (
       <div className="App">
-        <h1>Star Wars App</h1>
+        <h1>Star Trek App</h1>
         <h2>Select Season</h2>
         <div className="data-section">
         <section className="slidecontainer">
-          Season: {this.state.season}
-          <input type="range" min="1" max="7" value={this.state.season} className="slider" id="myRange" onChange={this.handleChange} />
-          Sort by: 
-          <select value={this.state.select} onChange={this.sortIt}>
-            <option value="default">---</option>
-            <option value="title">Title (A - Z)</option>
-            <option value="rating">Average Rating (Highest - Lowest)</option>
-            <option value="votes">Votes (Highest - Lowest)</option>
-          </select>
+          <section className="season-select">
+            <section>
+              Season: {this.state.season}
+            </section>
+            <select value={this.state.season} onChange={this.handleChange}>
+              <option value="All Seasons">All Seasons</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+            </select>
+          </section>
+          <section className="sort-section">
+            <section>
+            Sort by: 
+            </section>
+            <select value={this.state.select} onChange={this.sortIt}>
+              <option value="default">---</option>
+              <option value="title">Title (A - Z)</option>
+              <option value="rating">Average Rating (Highest - Lowest)</option>
+              <option value="votes">Votes (Highest - Lowest)</option>
+            </select>
+          </section>
         </section>
         <section className="episode-section">
           {trekEpisodes}
+          {error}
         </section>
         </div>
       </div>
