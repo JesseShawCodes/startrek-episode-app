@@ -33,7 +33,7 @@ class App extends Component {
     this.setState({season: e,dataVisual: []});
     console.log(e)
     if(e === "All Seasons") {
-      this.setState({dataVisual: this.state.data});
+      this.setState({dataVisual: this.state.data, select: "---"});
     }
     else {
       var newData = []
@@ -108,12 +108,12 @@ class App extends Component {
         <div className="data-section">
         <section className="selection-container">
           <section className="season-select">
-            <label for="Select Season of Star Trek">
+            <label htmlFor="Select Season of Star Trek">
             <form>
-            <select value={this.state.season} onChange={this.handleChange} title="select-season">
-              <label for="Select Season">
+            <section>
                 Season: {this.state.season}
-              </label>
+            </section>
+            <select value={this.state.season} onChange={this.handleChange} title="select-season">
               <option value="All Seasons">All Seasons</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -127,15 +127,15 @@ class App extends Component {
             </label>
           </section>
           <section className="sort-section">
-          <label for="Sort Seasons by Title, Rating, or Votes">
+          <label htmlFor="Sort Seasons by Title, Rating, or Votes">
           <form>
             <section>
-              <label for="Sort By">
+              <label htmlFor="Sort By">
               Sort by: {this.state.select}
               </label>
             </section>
             <select value={this.state.select} onChange={this.sortIt}  title="select-sort">
-              <option value="default" label="default">---</option>
+              <option value="default">---</option>
               <option value="Title" label="Title">Title (A - Z)</option>
               <option value="Rating" label="Rating">Average Rating (Highest - Lowest)</option>
               <option value="Votes" label="Votes">Votes (Highest - Lowest)</option>
