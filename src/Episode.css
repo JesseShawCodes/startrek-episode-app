@@ -15,3 +15,40 @@ div.episode > h3 {
 span.title, span.episode-number, span.season-number {
     display: inherit;
 }
+
+/*Badge Styling*/
+
+section.badges {
+    display: inline-flex;
+}
+
+.average-rating {
+    background-color: green;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.number-votes {
+    background-color: blue;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+span.badge-votes, span.badge-rating {
+    padding: 1px;
+    background-color: white;
+    color: black;
+}
+
+.average-rating, .number-votes {
+    /* height: 50px; */
+    margin: 0px 20px;
+    width: 100px;
+    padding: 5px;
+}
+
+span.badge-votes, span.badge-rating {
+    margin-left: 5px;
+}
