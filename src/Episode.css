@@ -57,3 +57,7 @@ span.badge-votes, span.badge-rating {
 .average-rating:hover, .number-votes:hover {
     box-shadow: -4px 2px grey;
 }
+
+.badge-text {
+    text-align: center;
+}

@@ -10,12 +10,16 @@ class Episode extends Component {
         <span className="season-number">Season: {this.props.seasonNumber}</span>
         <section className="badges">
           <div className="average-rating">
-            <span className="badge-label">Rating:</span>
-            <span className="badge-rating">{this.props.rating}</span>
+            <div className="badge-text">
+              <span className="badge-label">Rating:</span>
+              <span className="badge-rating">{this.props.rating}</span>
+            </div>
           </div>
           <div className="number-votes">
-            <span className="badge-label">Votes:</span> 
-            <span className="badge-votes">{this.props.votes}</span>
+            <div className="badge-text">
+              <span className="badge-label">Votes:</span> 
+              <span className="badge-votes">{this.props.votes}</span>
+            </div>
           </div>
         </section>
       </div>

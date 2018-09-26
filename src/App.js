@@ -42,7 +42,7 @@ class App extends Component {
           newData.push(this.state.data[i])
         }
       }
-      this.setState({dataVisual: newData, select: "default"})
+      this.setState({dataVisual: newData, select: "---"})
     }
   }
 
@@ -53,17 +53,17 @@ class App extends Component {
   sortIt(e) {
     this.setState({select: e.target.value})
     // var sortedData = this.state.dataVisual
-    if (e.target.value === "votes") {
+    if (e.target.value === "Votes") {
       this.state.dataVisual.sort(function (a, b) {
         return b.numVotes - a.numVotes;
       });
     }
-    if (e.target.value === "rating") {
+    if (e.target.value === "Rating") {
       this.state.dataVisual.sort(function (a, b) {
         return b.averageRating - a.averageRating;
       });
     }
-    if (e.target.value === "title") {
+    if (e.target.value === "Title") {
       this.state.dataVisual.sort(function(a, b) {
         var nameA = a.originalTitle;
         var nameB = b.originalTitle;
@@ -79,6 +79,7 @@ class App extends Component {
   }
   
   render() {
+    /*Render Episode Components*/
     var trekEpisodes = []
     if (this.state.dataReceived) {
       for (var i = 0; i < this.state.dataVisual.length; i++) {
@@ -92,7 +93,7 @@ class App extends Component {
         />)
       }
     }
-
+    /* Render Error Message */
     if(this.state.error) {
       var error = 
       <section className="error-message">
@@ -123,13 +124,13 @@ class App extends Component {
           </section>
           <section className="sort-section">
             <section>
-            Sort by: 
+            Sort by: {this.state.select}
             </section>
             <select value={this.state.select} onChange={this.sortIt}>
               <option value="default">---</option>
-              <option value="title">Title (A - Z)</option>
-              <option value="rating">Average Rating (Highest - Lowest)</option>
-              <option value="votes">Votes (Highest - Lowest)</option>
+              <option value="Title">Title (A - Z)</option>
+              <option value="Rating">Average Rating (Highest - Lowest)</option>
+              <option value="Votes">Votes (Highest - Lowest)</option>
             </select>
           </section>
         </section>
