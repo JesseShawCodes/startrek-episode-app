@@ -16,7 +16,7 @@ class App extends Component {
     this.updateData = this.updateData.bind(this);
     this.sortIt = this.sortIt.bind(this);
   }
-
+  // React LifeCycle Methods
   componentDidMount() {
     fetch('http://ec2-52-90-200-167.compute-1.amazonaws.com:8080')
     .then(data => data.json())
@@ -25,14 +25,17 @@ class App extends Component {
   }
 
   updateData(e) {
+    console.log("UPDATING DATA")
     this.setState({season: e,dataVisual: []});
     var newData = []
     for (var i = 0; i < this.state.data.length; i++) {
-      if (this.state.data[i].seasonNumber === parseInt(e)) {
+      console.log(i)
+      if (this.state.data[i].seasonNumber === parseInt(e, 8)) {
         newData.push(this.state.data[i])
       }
     }
-    this.setState({dataVisual: newData})
+    console.log(newData);
+    this.setState({dataVisual: newData, select: "default"})
   }
 
   handleChange(e) {
@@ -42,21 +45,24 @@ class App extends Component {
   sortIt(e) {
     this.setState({select: e.target.value})
     // var sortedData = this.state.dataVisual
-    if (this.state.select === "votes") {
+    if (e.target.value === "votes") {
+      console.log("SORTING BY VOTES");
       this.state.dataVisual.sort(function (a, b) {
         return b.numVotes - a.numVotes;
       });
     }
-    if (this.state.select === "rating") {
+    if (e.target.value === "rating") {
+      console.log("SORTING BY RATING");
       this.state.dataVisual.sort(function (a, b) {
         return b.averageRating - a.averageRating;
       });
     }
-    if (this.state.select === "title") {
+    if (e.target.value === "title") {
+      console.log("SORTING BY TITLE");
       this.state.dataVisual.sort(function(a, b) {
         console.log(a)
-        var nameA = a.originalTitle.toUpperCase();
-        var nameB = b.originalTitle.toUpperCase();
+        var nameA = a.originalTitle;
+        var nameB = b.originalTitle;
         if (nameA < nameB) {
           return -1;
         }
@@ -92,9 +98,10 @@ class App extends Component {
           <input type="range" min="1" max="7" value={this.state.season} className="slider" id="myRange" onChange={this.handleChange} />
           Sort by: 
           <select value={this.state.select} onChange={this.sortIt}>
-            <option value="title">Title</option>
-            <option value="rating">Average Rating</option>
-            <option value="votes">Votes</option>
+            <option value="default">---</option>
+            <option value="title">Title (A - Z)</option>
+            <option value="rating">Average Rating (Highest - Lowest)</option>
+            <option value="votes">Votes (Highest - Lowest)</option>
           </select>
         </section>
         <section className="episode-section">
